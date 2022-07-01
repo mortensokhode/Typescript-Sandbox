@@ -1,0 +1,20 @@
+{
+	"folders": [
+		{
+			"path": "."
+		},
+		{
+			"path": "image"
+		},
+		{
+			"path": "audio"
+		},
+		{
+			"path": "tsScript"
+		}
+	],
+	"settings": {
+		"liveServer.settings.multiRootWorkspaceName": "testProject",
+		"liveServer.settings.port": 5501
+	}
+}

@@ -1,0 +1,38 @@
+:root {
+    /*  Color definitions */
+    --crispyWhite: #ffffff;
+    --theDarkside: #110E2B;
+    --mainBackground: #121641;
+    --popupBackground: #5e6184;
+    --popupDarkerBG: #343a75;
+    --popupFLcolor: #181c42;
+    --buttonHover: #454368;
+    --buttonDark: #26235e;
+    --buttonText: #9896cb;
+    --buttonBorder: #1a193e;
+    --buttonLightBorder:#9896cb;
+    --mainDark: #14123b;
+    --borderLight: #6e7a88;
+    --lightText: #9896cb;
+    --bloodyRed: #6a0909;
+    --darkerText: #636286;
+    
+    /* seqson and shoecolors */
+    --initialGrey:#a1a7a3;
+    --springGreen: #126029;
+    --goldenSummer: #cbb245;
+    --brownish: #603713;
+    
+    /*  Site definitions  */
+    /* --mainWidth: 1000px; */
+    --mainWidth: 1000px;
+    --mainHeight: 2000px;
+    --androidWidth: 280px;
+    --androidHeight: 663px;
+    --androidTopFrame: 409px;
+    --androidBottomFrame: 254px;
+    
+    
+    /* definitions not in use  */
+  }
+  

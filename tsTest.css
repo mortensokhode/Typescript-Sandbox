@@ -1,0 +1,411 @@
+html,
+body {
+  margin: 0;
+  padding: 0;
+
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+
+  font-family: Roboto, Inter, sans-serif;
+  font-size: 16px;
+  font-variant-caps: titling-caps  ;
+  /* font-variant-caps: small-caps ; */
+  /* font-variant-caps: unicase ; */
+  max-width: 1600px;
+
+  background: var(--mainBackground);
+  color: var(--lightText);
+  z-index: 100;
+}
+
+header, main {
+  margin: 2em 0 0 3em;
+
+  position: auto;
+  display: flex;
+  flex-direction: row;
+  justify-content: flex-start;
+
+  z-index: 100;
+}
+
+header {
+  align-content: center;
+  width: 60%;
+  background-color: transparent;
+}
+
+main {
+  width: var(--mainWidth);
+  height: var(--mainHeight);
+
+  align-content: flex-start;
+  flex-wrap: wrap;
+}
+
+h1, h2 {
+  font-weight: 500;
+}
+
+.button  {
+    position: auto;
+
+    width: 10em;
+    height: 3em;
+
+    background: var(--buttonDark);
+    color: var(--buttonText);
+    border: 2px solid var(--buttonLightBorder);  
+    border-radius: 8px;
+    margin-right: 1em;
+}
+
+.button:hover{
+  cursor: grab;
+  background-color: var(--buttonHover);
+  color: var(--crispyWhite);
+}
+  
+.firstSection {
+  position: auto;
+  width: 100%;
+  display: flex;
+  flex-direction: row;
+  justify-content: flex-end;
+  flex-wrap: wrap;
+
+  z-index:500;
+}
+
+.subContainer1, .subContainer2 {
+  width: 100%;
+  line-height: 14px;
+  color: var(--lightText);
+  justify-content: flex-start;
+  flex-wrap: wrap;
+}
+
+.subContainer1 {
+  flex-direction: row;
+  align-content: space-around;
+}
+
+.subContainer2 {
+  flex-direction: column;
+  align-content: space-between;
+}
+
+.sectionText {
+  margin: 5px 10px;
+}
+
+
+.loginText {
+  margin: 15px 10px;
+}
+
+#audiovisual-div {
+  position: absolute;
+  display: none;
+
+  z-index: 700;
+}
+
+#textbased-div {
+  position: auto;
+  display: flex;
+  
+  z-index: 700;
+}
+
+.oppgaveSection01 {
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-start;
+}
+
+.oppgaveSection01, .fullWidthSection {
+  min-height: fit-content;
+}
+
+.frameClassOuter {
+  position: absolute;
+  top: 15px;
+  right: 150px;
+  height: var(--androidHeight);
+  width: var(--androidWidth);
+  border: 1px solid var(--crispyWhite);
+  border-radius: 15px;
+  z-index: 700;
+}
+
+.topFrame, .bottomFrame {
+  padding:0;
+  margin:0;
+  width: var(--androidWidth);
+  overflow:hidden;
+  animation-duration: 1.5s;
+}
+
+.topFrame {
+  position: absolute;
+  height: var(--androidTopFrame);
+  top: 0;
+  background-image: url('image/topFrameBG2.jpg');
+  border-radius: 15px 15px 0 0;
+  animation-name: slideup1;
+}
+
+.bottomFrame {
+  position: absolute;
+  height: var(--androidBottomFrame);
+  bottom: 0;
+  background-image: url('image/bottomFrameBG.jpg');
+  border-radius: 0 0 15px 15px;
+  
+  display:flex;
+  flex-direction: row;
+  justify-content: center;
+
+  animation-name: slideup2;
+}
+
+/* The two sliders look almost the same, but they are slightly different */
+@keyframes slideup1 {
+  0% {
+    transform: translateY(-100%);
+  }
+  100% {
+    transform: translateY(0%);
+  }}
+  
+
+@keyframes slideup2 {
+  0% {
+    transform: translateY(100%);
+  }
+  100% {
+    transform: translateY(0%);
+  }}
+    
+  
+
+.invisibleButton {
+  position: absolute;
+  bottom: 0;
+  background: transparent;
+  color: transparent;
+  width: 100%;
+  height: 20%;
+  border: 0; 
+  border-top: 1px solid white;
+}
+
+.popupElements {
+  width: 100%;
+  display: flex;
+  flex-direction: row;
+  flex-wrap: wrap;
+  justify-content: flex-start;
+  align-content: center;
+}
+
+.popupSection {
+  position: relative;
+  height: auto;
+  width: 25vw;
+  background-color: var(--popupBackground);
+  color: var(--theDarkside);
+  padding: 18px;
+  border: 2px solid var(--borderLight);
+  border-radius: 10px;
+  }
+
+  .popupSection #error-msg {
+    width: 30vw;
+    }
+  
+    
+
+.popupSection::first-line, .popupSection::first-letter {
+  font-weight:600;
+  font-size: larger;
+  background-color: var(--popupBackground);
+  color: var(--popupFLcolor);
+  line-height: 18px;
+  }
+
+.popupSection::first-letter {
+  font-size: 30px;
+  }
+    
+#botframesect-elm {
+  z-index: 900;
+  position: absolute;
+  right: 5vw;
+  top: 65vh;
+  animation-duration: 2s;
+  animation-name: slideInPlace;
+}
+
+@keyframes slideInPlace {
+  0% {
+    /* transform: translateY(-100%); */
+    transform: translateX(-350%);
+    opacity: 0%;
+  }
+  100% {
+    /* transform: translateY(0%); */
+    transform: translateX(0%);
+    opacity: 100%;
+  }
+}
+
+#error-msg {
+  z-index:1200;
+  position: absolute;
+  left: 22vw;
+  top: 4vh;
+  animation-duration: 2s;
+  animation-name: slideInPlace;
+}  
+
+.fullWidthSection { /*  AudioVisual part of the site only */
+  position: auto;
+
+  display: flex;
+  flex-direction: row;
+  justify-content:space-between;
+  align-items: flex-start;
+  flex-wrap: wrap;
+  margin-top: 15px;
+  width: 80%;
+}
+
+.oppgaveSection02 {
+  position: auto;
+
+  display: flex;
+  flex-direction: column;
+  justify-content:center;
+  align-items: flex-start;
+  width: 80%;
+}
+
+.oppgaveSection03 {
+  position: auto;
+  margin-top: 5vh;
+
+  display: flex;
+  flex-direction: row;
+  flex-wrap: wrap;
+  justify-content:flex-start;
+  align-items: flex-start;
+  width: 80%;
+}
+
+.githubHeader {
+  position: auto;
+  width: 35vw;
+  height: auto;
+  display: flex;
+  padding-left: 20px;
+  flex-direction: column;
+  justify-content: flex-start;
+  backdrop-filter: sepia(30%);
+  border-radius: 15px;
+  border: 1px solid var(--borderLight);
+}
+
+.githubDetails {
+  position: auto;
+  width: 25vw;
+  height: auto;
+  padding-left: 20px;
+  margin: 2vh 2vw 2vh 0;
+  backdrop-filter: sepia(30%);
+  background: transparent;
+  border-radius: 15px;
+  border: 1px solid var(--borderLight);
+}
+
+.githubList {
+  padding-left: 8px;
+}
+
+.githubList li {
+  font-weight: 100;
+  color: var(--lightText);
+}
+
+.pageheading {
+  color: var(--lightText);
+  font-size: 18px;
+  font-weight: normal;
+  text-align: left;
+}
+
+.opaqueText {
+    color: var(--lightText);
+    opacity: 0.9;
+}
+
+.season {
+  background-color: transparent;
+}
+
+.subText {
+    font-size: small;
+    color: var(--lightText);
+    padding: 0em 0em 0em 2em;
+}
+
+.tightHeading{
+  margin:0;
+}
+
+.uthevetSkrift {
+  font-weight: 500;
+  color: var(--darkerText);
+}
+
+.seasonText {
+  display: block;
+  margin-left: 15px;
+  line-height: 20px;
+  z-index: 160;
+  color: var(--initialGrey);
+}
+
+.audiosection {
+  padding-left: 10px;
+  width: 45%;
+}
+
+.youtubeSection, .videosection {
+  width: 50%;
+}
+
+.audioControl, .audioSource {
+  height: 25px;
+  margin-top: 10px;
+  color: var(--lightText);
+  opacity: 0.4;
+}
+
+.responsiveImg {
+  position: auto;
+  height: auto;
+  margin: 15px 0px 10px 10;
+  padding-top:10px;
+  width: 8vw;
+}
+  
+.smallAvatar {
+  position: auto;
+  height: auto; 
+  padding: 2vh 0 0 0;
+  width: 5vw;
+  margin:0;
+}

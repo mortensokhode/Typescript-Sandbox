@@ -1,0 +1,118 @@
+<html>
+  <head>
+    <meta charset="UTF-8"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;700&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;500;700&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+    <link href="varDefinitions.css" rel="stylesheet" >
+    <link href="tsTest.css" rel="stylesheet" >
+    <base target="_self" />
+    <script type="module" src="tsTest.js" defer></script>
+  </head>
+
+  <body>
+    <section class="popupElements">
+      <section class="popupSection" id="botframesect-elm" style="display: none">
+      </section>
+      <section class="popupSection" id="error-msg" style="display: none">
+      </section>
+    </section>
+
+    <header>
+      <button class="button" type="button" id="toggle01-btn"></button> 
+      <button class="button" type="button" id="toggle02-btn"></button> 
+      
+      <section class="topMsgRgtFrame">
+        <p class="hiddenText" id="debug-flg" hidden>1</p>
+        <p class="pageheading" id="pageheading-elm"></p>
+      </section>
+    </header>
+    
+    
+    <main>
+      <div class="frameClassOuter" id="outerframe-elm"  style="display: block">
+        <section class="topFrame" id="topframe-elm">
+          <img src="" alt="avatar" class="responsiveImg" id="avatar-elm">
+        </section>
+        <section class="bottomFrame" id="bottomframe-elm">
+          <button class="invisibleButton" id="invbutton-elm"></button>
+        </section>
+      </div>
+      
+      <section class="firstSection">
+      </section>
+          
+      <div class="subContainer1" id="audiovisual-div" style="display: none">
+        <div class="audiosection">
+          <section class="fullWidthSection">
+              <h2>The four seasons - Vivaldi</h2>
+              <h4>Please choose one</h4>
+          </section>
+
+          <section class="fullWidthSection">
+              <input list="season-lst" class="season" name="season" id="season-inp" placeholder="please choose one">
+              <datalist class="season-lst" id="season-lst">
+                <option value="Winter">
+                <option value="Spring">
+                <option value="Summer">
+                <option value="Autumn">
+              </datalist> 
+                <p class="seasonText" id="seasontext-elm"></p>
+              <audio class="audioControl" id="audiosource-elm" controls>
+                <source class="audioSource"  src="" type="audio/mp3">
+              </audio>
+          </section>
+
+          <section class="fullWidthSection">
+            <p class="opaqueText" id="audiomsg-elm"></p>
+            <p class="subText" id="reference-elm" style="display: none"></p>
+          </section>
+        </div>  <!--audiosection  -->
+
+        <div class="youtubeSection">
+          <section class="fullWidthSection">
+              <h4>Le Quattro Stagioni - Vivaldi</h4>
+          </section>
+
+          <section class="seasonVideoChoice">
+              <iframe class="videoControl" id="videosource-elm" controls="1">
+                <source class="videoSource" src="" type="video/mp4" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture">
+              </iframe>
+          </section>
+        </div>  <!--  youtubeSection  -->
+        
+        <div class="videosection">
+
+        </div> <!--  videosection -->
+      </div>  <!--  subContainer1  -->
+
+      <div class="subContainer2" id="textbased-div" style="display: flex">
+        <h2>Typescript - first test</h2>
+
+            <section class="oppgaveSection01" id="oppgavesection1-elm">
+              <p class="sectionText" id="plusOne"></p>
+              <p class="sectionText" id="plusTen"></p>
+              <p class="loginText" id="myLogin"></p>
+              <p class="sectionText" id="github01"></p>
+            </section>
+        
+            <section class="oppgaveSection02" id="oppgavesection2-elm">
+            </section>
+
+            <section class="oppgaveSection02" id="oppgavesection3-elm">
+              <p class="opaqueText" id="textelement01"></p>
+            </section>
+            
+            <section class="oppgaveSection03" id="oppgavesection4-elm">
+              <p class="opaqueText" id="textelement02"></p>
+            </section>
+
+      </div>  <!--  subContainer2 -->
+              
+    </main>  <!--  mainContainer  -->
+
+  </body>
+</html>

@@ -1,0 +1,70 @@
+function renderRepositoryData(reposHeader:{}, reposDetails:{}):void {
+    let oGithubHeader:tGithubHeader  = {}
+    let oGithubDetails:tGithubDetails = {}
+  
+    oGithubHeader = cleanupGithubObjectData(reposHeader, bHeader)
+      
+    // show off in the 'Android' window
+    avatarElm.setAttribute('src', oGithubHeader.avatar_url)
+  
+    // prepare the headerString to be rendered
+    let headerString:string = `
+    <section class="githubHeader">
+    <img src="${oGithubHeader.avatar_url}" alt="github avatar" class="smallAvatar"> <span class="tightHeading"><h1>${oGithubHeader.name}</h1></span>
+        <ul class="githubList">
+          <li> <span class="uthevetSkrift">Antall repositories:</span> ${oGithubHeader.public_repos}</li> 
+          <li> <span class="uthevetSkrift">Url:</span> ${oGithubHeader.html_url}</li>
+          <li> <span class="uthevetSkrift">Opprettet dato:</span> ${oGithubHeader.created_at}</li> 
+          <li> <span class="uthevetSkrift">Oppdatert dato:</span> ${oGithubHeader.updated_at}</li> 
+          <li> <span class="uthevetSkrift">Repository url:</span> ${oGithubHeader.repos_url}</li>
+          <li> <span class="uthevetSkrift">Email:</span> ${oGithubHeader.email}</li>
+        </ul>
+    </section>`
+  
+    // generate document fragment based on headerString
+    let headerFragment:DocumentFragment = generateElement(headerString)
+    // append the header document fragment to 'oppgavesection3Elm'
+    oppgavesection3Elm.appendChild(headerFragment)
+  
+    // And now we go for the repositories...
+    let detailsFragment:DocumentFragment
+    let detailsString:string
+  
+    oGithubDetails = cleanupGithubObjectData(reposDetails, !bHeader)
+    
+    let languages = ['JS', 'TypeScript', 'Elm', 'Dart','Scala'];
+    let langEl = document.querySelector('#language')
+    let fragment = new DocumentFragment();
+  
+    languages.forEach((language) => {
+        let li = document.createElement('li');
+        li.innerHTML = language;
+        fragment.appendChild(li);
+    })
+  
+    langEl.appendChild(fragment);
+  
+    // loop through the repositories 
+    for (let i = 0; i < Object.getOwnPropertyNames(oGithubDetails).length-1; i++ ) {
+      // establish the details string to render. I'm using var due to the fact that 'var' 
+      // accepts redeclaring.
+      detailsString = `
+        <section class="githubDetails">
+        <h1>${oGithubDetails[i].name}</h1>
+          <ul class="githubList">
+              <li> <span class="uthevetSkrift">Url:</span> <a href="${oGithubDetails[i].url}" target="_blank">${oGithubDetails[i].full_name}</a></li>
+              <li> <span class="uthevetSkrift">Created:</span> ${oGithubDetails[i].created_at}</li> 
+              <li> <span class="uthevetSkrift">Updated:</span> ${oGithubDetails[i].updated_at}</li> 
+              <li> <span class="uthevetSkrift">Visibility:</span> ${oGithubDetails[i].visibility}</li> 
+              <li> <span class="uthevetSkrift">Default branch:</span> ${oGithubDetails[i].default_branch}</li>
+              <li> <span class="uthevetSkrift">Size:</span> ${oGithubDetails[i].size}</li>
+              <li> <span class="uthevetSkrift">Main language:</span> ${oGithubDetails[i].language}</li>
+              <li> <span class="uthevetSkrift">Languages:</span>  <a href="${oGithubDetails[i].languages_url}" target="_blank">Just another link</a></li>
+          </ul>
+        </section>`
+  
+      detailsFragment = generateElement(detailsString)
+      oppgavesection4Elm.appendChild(detailsFragment)
+    }
+  }
+  

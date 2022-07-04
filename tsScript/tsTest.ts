@@ -33,6 +33,7 @@ type tGithubDetails = {
 } 
 
 const detailsArray:Array<tGithubDetails> = []
+const docFragmentArray:Array<DocumentFragment> = []
 const bHeader:boolean = true
 const myUrl:string = 'https://api.github.com/users/mortensokhode'
 const myHeader = await fetchGithubData(myUrl);
@@ -72,7 +73,7 @@ let currentWindow:string = location.pathname.slice(1)
 //  --------------------------------------------------------------
 
 pageHeadingElm.textContent = `Current page:  ${currentWindow}`
-
+// console.log('textbasedElm.children: ', textbasedElm.children)
 // Toggle buttons initial textContent
 toggle01Btn.textContent  = 'Audiovisual page'
 toggle02Btn.textContent  = 'Toggle error msg'
@@ -216,7 +217,7 @@ function cleanupGithubObjectData(object2clean:Object, bHeaderdata:boolean):Objec
     for (let i = 0; i < Object.getOwnPropertyNames(object2clean).length-1; i++ ) {
       detailWrkObj = object2clean[i]
 
-      detailsObject = {name: detailWrkObj['name'],
+      detailsArray.push({name: detailWrkObj['name'],
                       full_name: detailWrkObj['full_name'],
                       url: detailWrkObj['url'],
                       visibility: detailWrkObj['visibility'],
@@ -226,8 +227,7 @@ function cleanupGithubObjectData(object2clean:Object, bHeaderdata:boolean):Objec
                       size: detailWrkObj['size'], 
                       language: detailWrkObj['language'],
                       languages_url: detailWrkObj['languages_url']
-                    }
-          detailsArray.push(detailsObject)        
+                    })
       }
     return detailsArray
   }
@@ -236,6 +236,7 @@ function cleanupGithubObjectData(object2clean:Object, bHeaderdata:boolean):Objec
 function renderRepositoryData(reposHeader:{}, reposDetails:{}):void {
   let oGithubHeader:tGithubHeader  = {}
   let oGithubDetails:tGithubDetails = {}
+  let elementSubset:HTMLElement
 
   oGithubHeader = cleanupGithubObjectData(reposHeader, bHeader)
     
@@ -243,52 +244,121 @@ function renderRepositoryData(reposHeader:{}, reposDetails:{}):void {
   avatarElm.setAttribute('src', oGithubHeader.avatar_url)
 
   // prepare the headerString to be rendered
-  let headerString:string = `
-  <section class="githubHeader">
-  <img src="${oGithubHeader.avatar_url}" alt="github avatar" class="smallAvatar"> <span class="tightHeading"><h1>${oGithubHeader.name}</h1></span>
-      <ul class="githubList">
-        <li> <span class="uthevetSkrift">Antall repositories:</span> ${oGithubHeader.public_repos}</li> 
-        <li> <span class="uthevetSkrift">Url:</span> ${oGithubHeader.html_url}</li>
-        <li> <span class="uthevetSkrift">Opprettet dato:</span> ${oGithubHeader.created_at}</li> 
-        <li> <span class="uthevetSkrift">Oppdatert dato:</span> ${oGithubHeader.updated_at}</li> 
-        <li> <span class="uthevetSkrift">Repository url:</span> ${oGithubHeader.repos_url}</li>
-        <li> <span class="uthevetSkrift">Email:</span> ${oGithubHeader.email}</li>
-      </ul>
-  </section>`
+  // <img src="${oGithubHeader.avatar_url}" alt="github avatar" class="smallAvatar"> <span class="tightHeading"><h1>${oGithubHeader.name}</h1></span>
+  let headerFragment:DocumentFragment = new DocumentFragment;
+  var newSectionDoc = document.createElement('section')
+  newSectionDoc.setAttribute('class', 'githubHeader')
+  topAndroidElm.appendChild(newSectionDoc)
+
+  elementSubset = returnElement('ul', null, null, "githubList",null,null)
+  newSectionDoc.append(elementSubset)
+  elementSubset = returnElement('li', null, `Antall repositories: ${oGithubHeader.public_repos}`, null, null, null)
+  newSectionDoc.append(elementSubset)
+  elementSubset = returnElement('li', null, `Url: ${oGithubHeader.html_url}`, null, null, null)
+  newSectionDoc.append(elementSubset)
+  elementSubset = returnElement('li', null, `Opprettet dato: ${oGithubHeader.created_at}`, null, null, null)
+  newSectionDoc.append(elementSubset)
+  elementSubset = returnElement('li', null, `Oppdatert dato: ${oGithubHeader.updated_at}`, null, null, null)
+  newSectionDoc.append(elementSubset)
+  elementSubset = returnElement('li', null, `Repository url: ${oGithubHeader.repos_url}`, null, null, null)
+  newSectionDoc.append(elementSubset)
+  elementSubset = returnElement('li', null, `Email: ${oGithubHeader.email}`, null, null, null)
+  newSectionDoc.append(elementSubset)
+  
+  topAndroidElm.appendChild(newSectionDoc)
+  
+  // let headerString:string = `
+  // <section class="githubHeader">
+  //     <ul class="githubList">
+  //       <li> Antall repositories: ${oGithubHeader.public_repos}</li> 
+  //       <li> Url:${oGithubHeader.html_url}</li>
+  //       <li> Opprettet dato: ${oGithubHeader.created_at}</li> 
+  //       <li> Oppdatert dato: ${oGithubHeader.updated_at}</li> 
+  //       <li> Repository url: ${oGithubHeader.repos_url}</li>
+  //       <li> Email: ${oGithubHeader.email}</li>
+  //     </ul>
+  // </section>`
 
   // generate document fragment based on headerString
-  let headerFragment:DocumentFragment = generateElement(headerString)
+  //let headerFragment:DocumentFragment = generateElement(headerString)
   // append the header document fragment to 'oppgavesection3Elm'
-  oppgavesection3Elm.appendChild(headerFragment)
+  // oppgavesection3Elm.appendChild(headerFragment)
+
 
   // And now we go for the repositories...
-  let detailsFragment:DocumentFragment
-  let detailsString:string
-
   oGithubDetails = cleanupGithubObjectData(reposDetails, !bHeader)
+  
+  //console.log('newSectionDoc.attributes: ', newSectionDoc.attributes)
+  //console.log('oGithubDetails: ', oGithubDetails)
+
+  //let docFragment = new DocumentFragment();
+
+  // languages.forEach((language) => {
+  //     let li = document.createElement('li');
+  //     li.innerHTML = language;
+  //     fragment.appendChild(li);
+  // })
+
+  // langEl.appendChild(fragment);
+
   // loop through the repositories 
   for (let i = 0; i < Object.getOwnPropertyNames(oGithubDetails).length-1; i++ ) {
-    // establish the details string to render. I'm using var due to the fact that 'var' 
-    // accepts redeclaring.
-    detailsString = `
-      <section class="githubDetails">
-      <h1>${oGithubDetails[i].name}</h1>
-        <ul class="githubList">
-            <li> <span class="uthevetSkrift">Url:</span> <a href="${oGithubDetails[i].url}" target="_blank">${oGithubDetails[i].full_name}</a></li>
-            <li> <span class="uthevetSkrift">Created:</span> ${oGithubDetails[i].created_at}</li> 
-            <li> <span class="uthevetSkrift">Updated:</span> ${oGithubDetails[i].updated_at}</li> 
-            <li> <span class="uthevetSkrift">Visibility:</span> ${oGithubDetails[i].visibility}</li> 
-            <li> <span class="uthevetSkrift">Default branch:</span> ${oGithubDetails[i].default_branch}</li>
-            <li> <span class="uthevetSkrift">Size:</span> ${oGithubDetails[i].size}</li>
-            <li> <span class="uthevetSkrift">Main language:</span> ${oGithubDetails[i].language}</li>
-            <li> <span class="uthevetSkrift">Languages:</span>  <a href="${oGithubDetails[i].languages_url}" target="_blank">Just another link</a></li>
-        </ul>
-      </section>`
+    var newSectionDoc = document.createElement('section')
+    newSectionDoc.setAttribute('class', 'githubDetails')
+    oppgavesection4Elm.appendChild(newSectionDoc)
 
-    detailsFragment = generateElement(detailsString)
-    oppgavesection4Elm.appendChild(detailsFragment)
+    elementSubset = returnElement('h1', null, oGithubDetails[i].name)
+    newSectionDoc.append(elementSubset)
+
+    elementSubset = returnElement('ul', null, null, 'githubList', 'gitdetailsId')
+    newSectionDoc.append(elementSubset)
+
+    elementSubset = returnElement('li', 'Url: ', oGithubDetails[i].url, null, 'generateId', i)
+    newSectionDoc.append(elementSubset)
+    elementSubset = returnElement('li', 'Created: ', oGithubDetails[i].created_at, null, 'generateId', i)
+    newSectionDoc.append(elementSubset)
+    elementSubset = returnElement('li', 'Updated: ', oGithubDetails[i].updated_at, null, 'generateId', i)
+    newSectionDoc.append(elementSubset)
+    elementSubset = returnElement('li', 'Visibility: ', oGithubDetails[i].visibility, null, 'generateId', i)
+    newSectionDoc.append(elementSubset)
+    elementSubset = returnElement('li', 'Default branch: ', oGithubDetails[i].default_branch, null, 'generateId', i)
+    newSectionDoc.append(elementSubset)
+    elementSubset = returnElement('li', 'Size: ', oGithubDetails[i].size, null, 'generateId', i)
+    newSectionDoc.append(elementSubset)
+    elementSubset = returnElement('li', 'Main language: ', oGithubDetails[i].language, null, 'generateId', i)
+    newSectionDoc.append(elementSubset)
+    elementSubset = returnElement('li', 'Languages: ', oGithubDetails[i].languages_url, null, 'generateId', i)
+    newSectionDoc.append(elementSubset)
+
+    //console.log('docFragment.children: ', docFragment.children)
+
+    oppgavesection4Elm.appendChild(newSectionDoc)
   }
 }
+
+function returnElement(elementType:string, 
+                       leadText?:string,
+                       dataString?:string, 
+                       className?:string,
+                       idName?:string,
+                       iterator?:number):HTMLElement {
+
+ leadText = (leadText) ? leadText : ''
+ dataString = (dataString) ? dataString : ''
+
+ let returnElement:HTMLElement
+if (idName === 'generateId') {
+  idName = leadText + iterator.toString
+}                       
+
+returnElement = document.createElement(elementType);
+if (idName) returnElement.setAttribute('id', idName);
+if (className) returnElement.setAttribute('class', className);
+
+returnElement.innerHTML = `${leadText} ${dataString}`
+return returnElement
+}
+
 
 // Write stuff to a HTML section identified by sectionElm. textContent is self-explanatory and elementType represents HTML tag
 function generateElement(contentString:string):DocumentFragment {
@@ -298,15 +368,15 @@ function generateElement(contentString:string):DocumentFragment {
  }
 
   let parser = new DOMParser();
-  // let htmlDoc = parser.parseFromString(contentString, "text/html")  // denne gir ie egentlig et fragment, men et fullverdig html-dokument
-  let htmlDoc = parser.parseFromString(contentString, "text/xml")
+  let htmlDoc = parser.parseFromString(contentString, "text/html")  // denne gir ie egentlig et fragment, men et fullverdig html-dokument
+  //let htmlDoc = parser.parseFromString(contentString, "text/xml")
 
-  console.log('htmlDoc: ', htmlDoc)
-  let docFragment = document.createDocumentFragment();
-  docFragment.appendChild(htmlDoc.documentElement);
-  console.log('htmlDoc: ', htmlDoc)
+   let docFragment = document.createDocumentFragment();
+   docFragment.appendChild(htmlDoc.documentElement);
+
   return docFragment;
 }
+
 
 
 

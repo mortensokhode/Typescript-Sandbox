@@ -9,9 +9,8 @@ const toggle02Btn = document.getElementById('toggle02-btn');
 const errorMsg = document.getElementById('error-msg');
 const audioMsgElm = document.getElementById('audiomsg-elm');
 const referenceElm = document.getElementById('reference-elm');
-// const seasonInput = document.getElementById('season-inp');
-const seasonInput = document.querySelector('#season-inp')
-
+// const seasonInput:HTMLElement = document.getElementById('season-inp')
+const seasonInput = document.querySelector('#season-inp');
 const seasontextElm = document.getElementById('seasontext-elm');
 const audioSourceElm = document.getElementById('audiosource-elm');
 const pageHeadingElm = document.getElementById('pageheading-elm');
@@ -26,6 +25,7 @@ const topAndroidElm = document.getElementById('topframe-elm');
 const avatarElm = document.getElementById('avatar-elm');
 const oppgavesection2Elm = document.getElementById('oppgavesection2-elm');
 const oppgavesection3Elm = document.getElementById('oppgavesection3-elm');
+console.log("seasonInput: ", seasonInput);
 const detailsArray = [];
 const bHeader = true;
 const myUrl = 'https://api.github.com/users/mortensokhode';
@@ -35,9 +35,6 @@ const myDetails = await fetchGithubData(gitRepos);
 // Global vars 
 let currentWindow = location.pathname.slice(1);
 let detailWrkObj = {};
-
-console.log("seasonInput: ", seasonInput)
-
 //  --------------------------------------------------------------
 // Program Main:
 //  --------------------------------------------------------------
@@ -78,7 +75,7 @@ seasonInput.addEventListener('focus', () => {
     seasonInput.value = '';
 });
 // do some magic to text, audio & visuals when season is changed. Also loose focus (blur). Function process_Season is responsible for the actual processing
-seasonInput.addEventListener('change', () => {
+seasonInput.addEventListener('change', function () {
     const colorVar = process_Season(seasonInput.value);
     seasontextElm.style.color = colorVar;
     audioMsgElm.style.color = colorVar;
@@ -106,31 +103,30 @@ function addOppgaveContent(sectionElm, textContent, elementType) {
 function process_Season(season) {
     audioMsgElm.innerHTML = `<br><strong>Note:</strong> `; //Initial value
     referenceElm.style.display = 'block';
-    
     switch (season.toLowerCase()) {
         case 'vinter':
         case 'winter':
-            audioSourceElm.setAttribute('src', './audio/Winter Mvt 2 Largo.mp3');
+            audioSourceElm.setAttribute('src', 'audio/Winter Mvt 2 Largo.mp3');
             audioMsgElm.innerHTML += `Le quattro stagioni: Winter (Concerto No. 4 in F Minor) Largo`;
             videoSourceElm.setAttribute('src', 'https://www.youtube.com/embed/YN8VpT4rJuY');
             return 'var(--crispyWhite)';
         // the ubiquitous break will never be reached hence it i dropped
         case 'spring':
         case 'vår':
-            audioSourceElm.setAttribute('src', './audio/Spring Mvt 1 Allegro.mp3');
+            audioSourceElm.setAttribute('src', 'audio/Spring Mvt 1 Allegro.mp3');
             audioMsgElm.innerHTML += `Le quattro stagioni: Spring (Concerto No. 1 in E Major) Allegro`;
             videoSourceElm.setAttribute('src', 'https://www.youtube.com/embed/e3nSvIiBNFo');
             return 'var(--springGreen)';
         case 'sommer':
         case 'summer':
-            audioSourceElm.setAttribute('src', './audio/Summer Mvt 3 Presto.mp3');
+            audioSourceElm.setAttribute('src', 'audio/Summer Mvt 3 Presto.mp3');
             audioMsgElm.innerHTML += `Le quattro stagioni: Summer (Concerto No. 2 in G Minor) Adagio`;
             videoSourceElm.setAttribute('src', 'https://www.youtube.com/embed/I9yU8tDTGk8');
             return 'var(--goldenSummer)';
         case 'høst':
         case 'autumn':
         case 'fall':
-            audioSourceElm.setAttribute('src', './audio/Autumn Mvt 1 Allegro.mp3');
+            audioSourceElm.setAttribute('src', 'audio/Autumn Mvt 1 Allegro.mp3');
             audioMsgElm.innerHTML += `Le quattro stagioni: Autumn (Concerto No. 3 in F Major)  Allegro`;
             videoSourceElm.setAttribute('src', 'https://www.youtube.com/embed/QUPo5OBnZk0');
             return 'var(--brownish)';

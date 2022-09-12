@@ -1,20 +1,21 @@
 :root {
     /*  Color definitions */
     --crispyWhite: #ffffff;
+    --crispyWhiteOpc: #ffffff5F;
+    --borderLight: #f5f5f51F;
     --theDarkside: #110E2B;
     --mainBackground: #121641;
-    --mainBackground50: #1f397568;
     --popupBackground: #5e6184;
     --popupDarkerBG: #343a75;
     --popupFLcolor: #181c42;
     --buttonHover: #454368;
     --buttonDark: #26235e;
-    --buttonText: #9896cb;
+    --buttonText: #ffffff9F;
     --buttonBorder: #1a193e;
     --buttonLightBorder:#9896cb;
     --mainDark: #14123b;
     --borderLight: #6e7a88;
-    --lightText: #9896cb;
+    --lightText: #ffffff9F;
     --bloodyRed: #6a0909;
     --darkerText: #636286;
     
@@ -33,6 +34,8 @@
     --androidTopFrame: 409px;
     --androidBottomFrame: 254px;
     
+    /* various global constants */
+    --niceRoundCorners: 16px;
     
     /* definitions not in use  */
   }

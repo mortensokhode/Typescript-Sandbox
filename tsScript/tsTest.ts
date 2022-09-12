@@ -2,11 +2,32 @@
 import fetchGithubData from "./readGithubdata.js"
 import { douglasAdams } from "./textConstants.js"
 
+// DOM elements are for a great part done here, some elements are generated
+// further down, closer to it's actual use.
+//  --------------------------------------------------------------
+const toggle01Btn:HTMLElement = document.getElementById('toggle01-btn')
+const toggle02Btn:HTMLElement = document.getElementById('toggle02-btn')
+const errorMsg:HTMLElement = document.getElementById('error-msg')
+const audioMsgElm:HTMLElement = document.getElementById('audiomsg-elm')
+const referenceElm:HTMLElement = document.getElementById('reference-elm')
+// const seasonInput:HTMLElement = document.getElementById('season-inp')
+const seasonInput:HTMLInputElement = document.querySelector('#season-inp')
+const seasontextElm:HTMLElement = document.getElementById('seasontext-elm')
+const audioSourceElm:HTMLElement = document.getElementById('audiosource-elm')
+const pageHeadingElm:HTMLElement = document.getElementById('pageheading-elm')
+const videoSourceElm:HTMLElement = document.getElementById('videosource-elm')
+const audiovisualElm:HTMLElement = document.getElementById('audiovisual-div')
+const textbasedElm:HTMLElement = document.getElementById('textbased-div')
+const invbuttonElm:HTMLElement = document.getElementById('invbutton-elm')
+const botframesectElm:HTMLElement = document.getElementById('botframesect-elm')
 const outerframeElm:HTMLElement = document.getElementById('outerframe-elm')
 const oppgavesection4Elm:HTMLElement = document.getElementById('oppgavesection4-elm')
 const topAndroidElm:HTMLElement = document.getElementById('topframe-elm')
+const avatarElm:HTMLElement = document.getElementById('avatar-elm')
 const oppgavesection2Elm:HTMLElement = document.getElementById('oppgavesection2-elm')
 const oppgavesection3Elm:HTMLElement = document.getElementById('oppgavesection3-elm')
+
+console.log("seasonInput: ", seasonInput)
 
 type tGithubHeader = {
   name?: string;
@@ -33,45 +54,20 @@ type tGithubDetails = {
 } 
 
 const detailsArray:Array<tGithubDetails> = []
-const docFragmentArray:Array<DocumentFragment> = []
 const bHeader:boolean = true
 const myUrl:string = 'https://api.github.com/users/mortensokhode'
 const myHeader = await fetchGithubData(myUrl);
-
-let detailWrkObj:Object = {}
 const gitRepos:string = myHeader['repos_url']
-
 const myDetails = await fetchGithubData(gitRepos);
-
-const avatarElm:HTMLElement = document.getElementById('avatar-elm')
-let detailsObject:tGithubDetails
-renderRepositoryData(myHeader, myDetails)
-
-// DOM elements are for a great part done here, some elements are generated
-// further down, closer to it's actual use.
-//  --------------------------------------------------------------
-const toggle01Btn:HTMLElement = document.getElementById('toggle01-btn')
-const toggle02Btn:HTMLElement = document.getElementById('toggle02-btn')
-const errorMsg:HTMLElement = document.getElementById('error-msg')
-const audioMsgElm:HTMLElement = document.getElementById('audiomsg-elm')
-const referenceElm:HTMLElement = document.getElementById('reference-elm')
-const seasonInput:HTMLElement = document.getElementById('season-inp')
-const seasontextElm:HTMLElement = document.getElementById('seasontext-elm')
-const audioSourceElm:HTMLElement = document.getElementById('audiosource-elm')
-const pageHeadingElm:HTMLElement = document.getElementById('pageheading-elm')
-const videoSourceElm:HTMLElement = document.getElementById('videosource-elm')
-const audiovisualElm:HTMLElement = document.getElementById('audiovisual-div')
-const textbasedElm:HTMLElement = document.getElementById('textbased-div')
-const invbuttonElm:HTMLElement = document.getElementById('invbutton-elm')
-const botframesectElm:HTMLElement = document.getElementById('botframesect-elm')
 
 // Global vars 
 let currentWindow:string = location.pathname.slice(1) 
+let detailWrkObj:Object = {}
 
 //  --------------------------------------------------------------
 // Program Main:
 //  --------------------------------------------------------------
-
+renderRepositoryData(myHeader, myDetails)
 pageHeadingElm.textContent = `Current page:  ${currentWindow}`
 // console.log('textbasedElm.children: ', textbasedElm.children)
 // Toggle buttons initial textContent
@@ -111,17 +107,17 @@ toggle02Btn.addEventListener('click', function() {
 // ----------------------------------------------
 // clean up element value when it gets focus
 seasonInput.addEventListener('focus', () => {
-  seasonInput.nodeValue='' 
+  seasonInput.value='' 
 })
 
 // do some magic to text, audio & visuals when season is changed. Also loose focus (blur). Function process_Season is responsible for the actual processing
 seasonInput.addEventListener('change', function() {
-  const colorVar:string = process_Season(seasonInput.nodeValue)
+  const colorVar:string = process_Season(seasonInput.value)
 
   seasontextElm.style.color = colorVar
   audioMsgElm.style.color = colorVar
   seasonInput.blur()
-  seasontextElm.innerHTML = ` Color fit for ${seasonInput.nodeValue} is reflected in this text.<br><br> ...and btw, click on play below to play matching music.`
+  seasontextElm.innerHTML = ` Color fit for ${seasonInput.value} is reflected in this text.<br><br> ...and btw, click on play below to play matching music.`
 })
 
 invbuttonElm.addEventListener('mouseover', ()=> {
@@ -146,8 +142,6 @@ function addOppgaveContent(sectionElm:HTMLElement, textContent:string, elementTy
   sectionElm.appendChild(sectionContentElm)
 }
 
-// do some stuff to audio & visual parts through use of a switch construction. Multiple case elements are used to handle norwegian, english (uk) and english (am)
-// default values at 'failure to match' cleans up some element content
 function process_Season(season:string):string {
   audioMsgElm.innerHTML = `<br><strong>Note:</strong> ` //Initial value
   referenceElm.style.display='block'
@@ -244,8 +238,6 @@ function renderRepositoryData(reposHeader:{}, reposDetails:{}):void {
   avatarElm.setAttribute('src', oGithubHeader.avatar_url)
 
   // prepare the headerString to be rendered
-  // <img src="${oGithubHeader.avatar_url}" alt="github avatar" class="smallAvatar"> <span class="tightHeading"><h1>${oGithubHeader.name}</h1></span>
-  let headerFragment:DocumentFragment = new DocumentFragment;
   var newSectionDoc = document.createElement('section')
   newSectionDoc.setAttribute('class', 'githubHeader')
   topAndroidElm.appendChild(newSectionDoc)
@@ -266,41 +258,10 @@ function renderRepositoryData(reposHeader:{}, reposDetails:{}):void {
   newSectionDoc.append(elementSubset)
   
   topAndroidElm.appendChild(newSectionDoc)
-  
-  // let headerString:string = `
-  // <section class="githubHeader">
-  //     <ul class="githubList">
-  //       <li> Antall repositories: ${oGithubHeader.public_repos}</li> 
-  //       <li> Url:${oGithubHeader.html_url}</li>
-  //       <li> Opprettet dato: ${oGithubHeader.created_at}</li> 
-  //       <li> Oppdatert dato: ${oGithubHeader.updated_at}</li> 
-  //       <li> Repository url: ${oGithubHeader.repos_url}</li>
-  //       <li> Email: ${oGithubHeader.email}</li>
-  //     </ul>
-  // </section>`
-
-  // generate document fragment based on headerString
-  //let headerFragment:DocumentFragment = generateElement(headerString)
-  // append the header document fragment to 'oppgavesection3Elm'
-  // oppgavesection3Elm.appendChild(headerFragment)
-
 
   // And now we go for the repositories...
   oGithubDetails = cleanupGithubObjectData(reposDetails, !bHeader)
   
-  //console.log('newSectionDoc.attributes: ', newSectionDoc.attributes)
-  //console.log('oGithubDetails: ', oGithubDetails)
-
-  //let docFragment = new DocumentFragment();
-
-  // languages.forEach((language) => {
-  //     let li = document.createElement('li');
-  //     li.innerHTML = language;
-  //     fragment.appendChild(li);
-  // })
-
-  // langEl.appendChild(fragment);
-
   // loop through the repositories 
   for (let i = 0; i < Object.getOwnPropertyNames(oGithubDetails).length-1; i++ ) {
     var newSectionDoc = document.createElement('section')
@@ -329,8 +290,6 @@ function renderRepositoryData(reposHeader:{}, reposDetails:{}):void {
     newSectionDoc.append(elementSubset)
     elementSubset = returnElement('li', 'Languages: ', oGithubDetails[i].languages_url, null, 'generateId', i)
     newSectionDoc.append(elementSubset)
-
-    //console.log('docFragment.children: ', docFragment.children)
 
     oppgavesection4Elm.appendChild(newSectionDoc)
   }
@@ -369,7 +328,6 @@ function generateElement(contentString:string):DocumentFragment {
 
   let parser = new DOMParser();
   let htmlDoc = parser.parseFromString(contentString, "text/html")  // denne gir ie egentlig et fragment, men et fullverdig html-dokument
-  //let htmlDoc = parser.parseFromString(contentString, "text/xml")
 
    let docFragment = document.createDocumentFragment();
    docFragment.appendChild(htmlDoc.documentElement);

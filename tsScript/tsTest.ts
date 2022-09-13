@@ -10,8 +10,10 @@ const toggle02Btn:HTMLElement = document.getElementById('toggle02-btn')
 const errorMsg:HTMLElement = document.getElementById('error-msg')
 const audioMsgElm:HTMLElement = document.getElementById('audiomsg-elm')
 const referenceElm:HTMLElement = document.getElementById('reference-elm')
-// const seasonInput:HTMLElement = document.getElementById('season-inp')
-const seasonInput:HTMLInputElement = document.querySelector('#season-inp')
+
+//  getElementById don't handle strong typing with HTMLInputElement which is needed specifically for
+//  this element, hence the use of querySelector.
+const seasonInput:HTMLInputElement = document.querySelector('#season-inp') 
 const seasontextElm:HTMLElement = document.getElementById('seasontext-elm')
 const audioSourceElm:HTMLElement = document.getElementById('audiosource-elm')
 const pageHeadingElm:HTMLElement = document.getElementById('pageheading-elm')

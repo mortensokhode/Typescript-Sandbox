@@ -420,9 +420,9 @@ header {
 /*               flip animation test                   */
 .flip-box {
   background-color: transparent;
-  width: 25vw;
-  height: 40vh;
-  perspective: 1000px; /* Remove this if you don't want the 3D effect */
+  width: 750px;
+  height: 750px;
+  perspective: 900px; /* Remove this if you don't want the 3D effect */
 }
 
 /* This container is needed to position the front and back side */

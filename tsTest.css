@@ -16,7 +16,7 @@ body {
 
   background: var(--mainBackground);
   color: var(--lightText);
-  z-index: 100;
+  z-index: 1;
 }
 
 /*  Typography   */
@@ -43,7 +43,7 @@ header, main {
   flex-direction: row;
   justify-content: flex-start;
 
-  z-index: 100;
+  z-index: 1;
 }  
 
 header {
@@ -104,7 +104,7 @@ header {
   flex-direction: row;
   justify-content: flex-end;
   flex-wrap: wrap;
-  z-index:500;
+  z-index:2;
 }
 
 .subContainer1, .subContainer2 {
@@ -148,7 +148,7 @@ header {
   right: 150px;
   height: var(--androidHeight);
   width: var(--androidWidth);
-  z-index: 700;
+  z-index: 3;
 }
 
 .topFrame, .bottomFrame {
@@ -320,7 +320,6 @@ header {
   display: block;
   margin-left: 16px;
   line-height: 20px;
-  z-index: 160;
   color: var(--initialGrey);
 }
 
@@ -357,16 +356,16 @@ header {
 #audiovisual-div {
   position: absolute;
   display: none;
-  z-index: 700;
+  /* z-index: 700; */
 }
 
 #textbased-div {
   display: flex;
-  z-index: 700;
+  /* z-index: 700; */
 }
 
 #botframesect-elm {
-  z-index: 900;
+  z-index: 5;
   position: absolute;
   right: 5vw;
   top: 65vh;
@@ -375,7 +374,7 @@ header {
 }
 
 #error-msg {
-  z-index:1200;
+  z-index:5;
   position: absolute;
   left: 22vw;
   top: 4vh;
@@ -442,23 +441,31 @@ header {
 
 /* Position the front and back side */
 .flip-box-front, .flip-box-back {
-  position: absolute;
-  width: 100%;
-  height: 100%;
   -webkit-backface-visibility: hidden; /* Safari */
   backface-visibility: hidden;
+  z-index: 5;
+
 }
 
 /* Style the front side (fallback if image is missing) */
 .flip-box-front {
+  position: absolute;
+  width: 100%;
+  height: 100%;
   background-color: var(--mainBackground);
   background-image: url('./image/containersBWb.jpg');
-  background-size: contain;
+  background-size: cover;
   color: var(--mainDark);
 }
 
 /* Style the back side */
 .flip-box-back {
+  position: relative;
+  top: -300;
+  left:-800;
+
+  width: 200%;
+  height: 100%;
   color: var(--lightText);
   transform: rotateY(180deg);
 }

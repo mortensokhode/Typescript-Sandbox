@@ -356,12 +356,10 @@ header {
 #audiovisual-div {
   position: absolute;
   display: none;
-  /* z-index: 700; */
 }
 
 #textbased-div {
   display: flex;
-  /* z-index: 700; */
 }
 
 #botframesect-elm {

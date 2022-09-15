@@ -1,0 +1,16 @@
+{
+  "manifest_version": 3,
+  "version": "1.0",
+  "name": "Typescript-Sandbox",
+  "action": {
+    "default_popup": "index.html",
+    "default_icon": "icon.png"
+  },
+  "permissions": [
+    "tabs"
+  ],
+  "host_permissions": [
+    "https://mortensokhode.github.io/",
+    "http://127.0.0.1:5500/"
+  ]
+}
